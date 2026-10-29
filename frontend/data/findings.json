@@ -1,0 +1,139 @@
+[
+  {
+    "id": "f_001",
+    "assetId": "fridge_01",
+    "attack": "UNAUTH_DEFROST",
+    "severity": "CRITICAL",
+    "evidence": "POST /defrost returned 200 without token",
+    "impactEur": 40000,
+    "status": "OPEN",
+    "recommendation": "Require an authenticated session on /defrost and allow it only from the maintenance network.",
+    "foundAt": "2026-10-29T09:02:00Z",
+    "source": "REDTEAM"
+  },
+  {
+    "id": "f_002",
+    "assetId": "fridge_01",
+    "attack": "DEFROST_FLOOD",
+    "severity": "HIGH",
+    "evidence": "10 defrost requests in 5 minutes accepted (no rate limit)",
+    "impactEur": 40000,
+    "status": "PATCHED",
+    "recommendation": "Rate-limit defrost to 1 cycle per 4 hours per device.",
+    "foundAt": "2026-10-29T09:03:00Z",
+    "source": "REDTEAM"
+  },
+  {
+    "id": "f_003",
+    "assetId": "freezer_03",
+    "attack": "SETPOINT_TAMPER",
+    "severity": "CRITICAL",
+    "evidence": "POST /setpoint accepted 30°C (allowed range -22 to -16°C)",
+    "impactEur": 55000,
+    "status": "OPEN",
+    "recommendation": "Validate setpoint against the asset's safe range on the device and in the API.",
+    "foundAt": "2026-10-29T09:04:00Z",
+    "source": "REDTEAM"
+  },
+  {
+    "id": "f_004",
+    "assetId": "fridge_01",
+    "attack": "DEFAULT_CREDENTIALS",
+    "severity": "HIGH",
+    "evidence": "Login succeeded with admin / admin123",
+    "impactEur": 20000,
+    "status": "VERIFIED",
+    "recommendation": "Password must have 12+ characters with uppercase, lowercase, number and special character.",
+    "foundAt": "2026-10-29T09:01:00Z",
+    "source": "REDTEAM"
+  },
+  {
+    "id": "f_005",
+    "assetId": "hvac_02",
+    "attack": "MFA_DISABLED",
+    "severity": "HIGH",
+    "evidence": "Admin account has no second factor configured",
+    "impactEur": 15000,
+    "status": "OPEN",
+    "recommendation": "Enable TOTP authentication for every admin and operator account.",
+    "foundAt": "2026-10-29T09:05:00Z",
+    "source": "REDTEAM"
+  },
+  {
+    "id": "f_006",
+    "assetId": "hvac_02",
+    "attack": "PRIVILEGE_ESCALATION",
+    "severity": "MEDIUM",
+    "evidence": "Technician role could call PATCH /users/:id/role",
+    "impactEur": 8000,
+    "status": "PATCHED",
+    "recommendation": "Apply least privilege: only admins may change roles.",
+    "foundAt": "2026-10-29T09:06:00Z",
+    "source": "REDTEAM"
+  },
+  {
+    "id": "f_007",
+    "assetId": "hvac_02",
+    "attack": "KNOWN_CVE",
+    "severity": "CRITICAL",
+    "evidence": "BMS web console reports Apache Log4j 2.14.1 — matched cpe:2.3:a:apache:log4j:2.14.1:*:*:*:*:*:*:*",
+    "impactEur": 15000,
+    "status": "OPEN",
+    "recommendation": "Upgrade Log4j to 2.17.1 or later. Until then, block outbound LDAP/RMI from the BMS network.",
+    "foundAt": "2026-10-29T08:58:00Z",
+    "source": "CVE",
+    "cve": {
+      "id": "CVE-2021-44228",
+      "cvss": 10.0,
+      "product": "Apache Log4j",
+      "version": "2.14.1",
+      "fixedIn": "2.17.1",
+      "publishedAt": "2021-12-10",
+      "knownExploited": true,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+    }
+  },
+  {
+    "id": "f_008",
+    "assetId": "cam_01",
+    "attack": "KNOWN_CVE",
+    "severity": "CRITICAL",
+    "evidence": "Camera firmware build predates the vendor's Sep 2021 fix — matched vendor/model CPE",
+    "impactEur": 3000,
+    "status": "OPEN",
+    "recommendation": "Update camera firmware and move the camera to an isolated VLAN with no inbound internet access.",
+    "foundAt": "2026-10-29T08:59:00Z",
+    "source": "CVE",
+    "cve": {
+      "id": "CVE-2021-36260",
+      "cvss": 9.8,
+      "product": "Hikvision IP camera web server",
+      "version": "firmware before Sep 2021 update",
+      "fixedIn": "Vendor firmware update (Sep 2021)",
+      "publishedAt": "2021-09-22",
+      "knownExploited": true,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-36260"
+    }
+  },
+  {
+    "id": "f_009",
+    "assetId": "ev_01",
+    "attack": "KNOWN_CVE",
+    "severity": "HIGH",
+    "evidence": "TLS handshake banner shows OpenSSL 1.0.1f on the charger gateway",
+    "impactEur": 9000,
+    "status": "PATCHED",
+    "recommendation": "Upgrade OpenSSL to 1.0.1g or later, then rotate the gateway's TLS keys and certificates.",
+    "foundAt": "2026-10-29T08:57:00Z",
+    "source": "CVE",
+    "cve": {
+      "id": "CVE-2014-0160",
+      "cvss": 7.5,
+      "product": "OpenSSL",
+      "version": "1.0.1f",
+      "fixedIn": "1.0.1g",
+      "publishedAt": "2014-04-07",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2014-0160"
+    }
+  }
+]

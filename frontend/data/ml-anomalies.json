@@ -1,0 +1,65 @@
+[
+  {
+    "assetId": "fridge_01",
+    "timestamp": "2026-10-29T09:12:00Z",
+    "anomalyScore": 0.12,
+    "isAnomaly": false,
+    "severity": "LOW",
+    "suspectedAttack": null,
+    "topFeatures": [],
+    "explanation": "Behaviour within normal range.",
+    "model": "isolation_forest_v1"
+  },
+  {
+    "assetId": "fridge_01",
+    "timestamp": "2026-10-29T09:14:00Z",
+    "anomalyScore": 0.68,
+    "isAnomaly": true,
+    "severity": "HIGH",
+    "suspectedAttack": "CREDENTIAL_STUFFING",
+    "topFeatures": [
+      { "feature": "failedLogins1m", "value": 15, "normalRange": [0, 1] }
+    ],
+    "explanation": "15 failed logins in one minute (normal: 0-1).",
+    "model": "isolation_forest_v1"
+  },
+  {
+    "assetId": "fridge_01",
+    "timestamp": "2026-10-29T09:15:00Z",
+    "anomalyScore": 0.91,
+    "isAnomaly": true,
+    "severity": "CRITICAL",
+    "suspectedAttack": "DEFROST_FLOOD",
+    "topFeatures": [
+      { "feature": "defrostCount1h", "value": 10, "normalRange": [0, 1] },
+      { "feature": "temperature", "value": 14.8, "normalRange": [2, 6] }
+    ],
+    "explanation": "10 defrost cycles in the last hour (normal: 0-1) while temperature is rising.",
+    "model": "isolation_forest_v1"
+  },
+  {
+    "assetId": "freezer_03",
+    "timestamp": "2026-10-29T09:15:30Z",
+    "anomalyScore": 0.84,
+    "isAnomaly": true,
+    "severity": "CRITICAL",
+    "suspectedAttack": "SETPOINT_TAMPER",
+    "topFeatures": [
+      { "feature": "setpoint", "value": 30, "normalRange": [-22, -16] },
+      { "feature": "configChanges1h", "value": 3, "normalRange": [0, 0] }
+    ],
+    "explanation": "Setpoint changed to 30°C outside maintenance hours.",
+    "model": "isolation_forest_v1"
+  },
+  {
+    "assetId": "fridge_01",
+    "timestamp": "2026-10-29T09:16:00Z",
+    "anomalyScore": 0.15,
+    "isAnomaly": false,
+    "severity": "LOW",
+    "suspectedAttack": null,
+    "topFeatures": [],
+    "explanation": "Behaviour back to normal after auto-recovery.",
+    "model": "isolation_forest_v1"
+  }
+]
