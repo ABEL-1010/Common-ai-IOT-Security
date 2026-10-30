@@ -17,7 +17,7 @@ export interface NavItem {
 
 /** Primary navigation — drives the sidebar (NavMain) and breadcrumbs. */
 export const dashboardNav: NavItem[] = [
-  { title: "Overview", url: "/", icon: LayoutDashboard },
+  { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
   { title: "Assets", url: "/assets", icon: Server },
   { title: "Findings", url: "/findings", icon: Bug },
   { title: "Users & Access", url: "/users", icon: Users },
@@ -27,7 +27,7 @@ export const dashboardNav: NavItem[] = [
 ]
 
 export function findNavByPath(pathname: string): NavItem | undefined {
-  // Longest matching url wins so /findings beats /.
+  // Longest matching url wins so /findings/x resolves to /findings.
   return [...dashboardNav]
     .sort((a, b) => b.url.length - a.url.length)
     .find(

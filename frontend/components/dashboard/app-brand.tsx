@@ -9,7 +9,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-export function AppBrand({ href = "/" }: { href?: string }) {
+export function AppBrand({ href = "/dashboard" }: { href?: string }) {
   return (
     <SidebarMenu>
       <SidebarMenuItem>

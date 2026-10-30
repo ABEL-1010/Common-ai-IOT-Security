@@ -21,7 +21,7 @@ export function NavMain() {
   const { isMobile, setOpenMobile } = useSidebar()
 
   const isActive = (url: string) =>
-    pathname === url || (url !== "/" && pathname.startsWith(`${url}/`))
+    pathname === url || (url !== "/dashboard" && pathname.startsWith(`${url}/`))
   const closeMobileSidebar = () => {
     if (isMobile) {
       setOpenMobile(false)
